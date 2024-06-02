@@ -7,7 +7,7 @@ error_exit() {
     exit 1
 }
 
-hostnamectl set-hostname isp; exec bash
+hostnamectl set-hostname isp
 
 # Enable IPv6 in default options
 DEFAULT_OPTIONS="/etc/net/ifaces/default/options"
