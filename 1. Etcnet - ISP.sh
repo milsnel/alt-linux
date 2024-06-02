@@ -21,7 +21,9 @@ fi
 ENS34_OPTIONS="/etc/net/ifaces/ens34/options"
 if [ -f "$ENS34_OPTIONS" ]; then
     sed -i 's/DISABLED=yes/DISABLED=no/g' "$ENS34_OPTIONS"
+    echo "hui0"
 else
+    echo "hui1"
     error_exit "Файл $ENS34_OPTIONS не найден."
 fi
 
