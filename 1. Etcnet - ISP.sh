@@ -32,9 +32,9 @@ ENS34_DIR="/etc/net/ifaces/ens34"
 ENS35_DIR="/etc/net/ifaces/ens35"
 ENS36_DIR="/etc/net/ifaces/ens36"
 if [ -f "$ENS34_OPTIONS" ]; then
-    cp -n "$ENS34_OPTIONS" "$ENS35_DIR/"
-    cp -n "$ENS34_OPTIONS" "$ENS36_DIR/"
-        echo "hui2"
+    cp "$ENS34_OPTIONS" "$ENS35_DIR/"
+    cp "$ENS34_OPTIONS" "$ENS36_DIR/"
+    echo "hui2"
 else
     echo "hui3"
     error_exit "Файл $ENS34_OPTIONS не найден для копирования."
