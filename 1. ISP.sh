@@ -21,6 +21,14 @@ ENS34_OPTIONS="/etc/net/ifaces/ens34/options"
 if [ -f "$ENS34_OPTIONS" ]; then
     sed -i 's/DISABLED=yes/DISABLED=no/g' "$ENS34_OPTIONS"
     sed -i 's/MN_CONTROLLED=yes/MN_CONTROLLED=no/g' "$ENS34_OPTIONS"
+
+    # Проверка и замена CONFIG_IPV6, или добавление его после CONFIG_IPV4
+    if grep -q 'CONFIG_IPV6=no' "$ENS34_OPTIONS"; then
+        sed -i 's/CONFIG_IPV6=no/CONFIG_IPV6=yes/g' "$ENS34_OPTIONS"
+    elif ! grep -q 'CONFIG_IPV6=yes' "$ENS34_OPTIONS"; then
+        # Если строки CONFIG_IPV6 нет, добавляем её после строки CONFIG_IPV4=yes
+        sed -i '/CONFIG_IPV4=yes/a CONFIG_IPV6=yes' "$ENS34_OPTIONS"
+    fi
 else
     error_exit "Файл $ENS34_OPTIONS не найден."
 fi
