@@ -2,8 +2,6 @@
 
 hostnamectl set-hostname ISP
 
-exec bash
-
 set -e  # Прекращение работы скрипта при ошибке
 
 error_exit() {
@@ -63,3 +61,5 @@ fi
 
 # Restart network service
 systemctl restart network || error_exit "Не удалось перезапустить сетевую службу."
+
+exec bash
