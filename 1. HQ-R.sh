@@ -39,11 +39,13 @@ fi
 
 # Set IPv4 addresses
 echo 11.11.11.2/24 > "$ENS33_DIR/ipv4address"
+echo default via 11.11.11.1> "$ENS33_DIR/ipv4routes"
 echo 192.168.100.1/26 > "$ENS34_DIR/ipv4address"
 echo 44.44.44.1/24 > "$ENS35_DIR/ipv4address"
 
 # Set IPv6 addresses
 echo 2001:11::2/64 > "$ENS33_DIR/ipv6address"
+echo default via 2001:11::1> "$ENS33_DIR/ipv6routes"
 echo 2000:100::1/122 > "$ENS34_DIR/ipv6address"
 echo 2001:44::1/64 > "$ENS35_DIR/ipv6address"
 
