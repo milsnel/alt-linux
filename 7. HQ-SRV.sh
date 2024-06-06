@@ -8,7 +8,7 @@ error_exit() {
 }
 
 # Изменение порта SSH в конфигурационном файле
-SSH_CONFIG="/etc/ssh/sshd_config"
+SSH_CONFIG="/etc/openssh/sshd_config"
 NEW_PORT=2222
 
 echo "Изменение порта SSH на $NEW_PORT..."
