@@ -1,6 +1,6 @@
 #!/bin/bash
 
-hostnamectl set-hostname ISP
+hostnamectl set-hostname BR-R
 
 exec bash
 
