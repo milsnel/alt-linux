@@ -33,14 +33,6 @@ host hq-srv {
 }
 EOF
 
-dhcpd -t -cf /etc/dhcp/dhcpd.conf
-
-systemctl enable --now dhcpd
-
-systemctl status dhcpd
-journalctl -f -u dhcpd
-
-
 echo "Создание конфигурационного файла DHCP для IPv6..."
 cat <<EOF > /etc/dhcp/dhcpd6.conf
 # Server configuration file example for DHCPV6
@@ -66,8 +58,12 @@ subnet6 2000:180::/122 {
 # }
 EOF
 
-systemctl enable --now dhcpd6
+
 dhcpd -t -cf /etc/dhcp/dhcpd.conf
+dhcpd -t -cf /etc/dhcp/dhcpd6.conf
+
+systemctl enable --now dhcpd
+systemctl enable --now dhcpd6
 
 journalctl -f -u dhcpd6.service
 

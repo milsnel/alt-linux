@@ -34,6 +34,7 @@ else
 fi
 
 # Copy ens33 configuration to ens34 and ens35
+ENS33_DIR="/etc/net/ifaces/ens33"
 ENS34_DIR="/etc/net/ifaces/ens34"
 ENS35_DIR="/etc/net/ifaces/ens35"
 if [ -f "$ENS33_OPTIONS" ]; then
