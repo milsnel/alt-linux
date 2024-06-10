@@ -25,7 +25,7 @@ allow leasequery;
 option dhcp6.preference 255;
 option dhcp6.info-refresh-time 21600;
 
-subnet6 2000:180::/122 {
+subnet6 2000:100::/122 {
     range6 2000:100::2 2000:100::3f;
 }
 
@@ -36,7 +36,7 @@ subnet6 2000:180::/122 {
 # }
 EOF
 
-dhcpd -t -cf /etc/dhcp/dhcpd6.conf
+dhcpd -t -6 -cf /etc/dhcp/dhcpd6.conf
 
 systemctl enable --now dhcpd6
 

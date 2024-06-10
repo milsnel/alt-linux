@@ -59,7 +59,7 @@ echo 2001:44::1/64 > "$ENS35_DIR/ipv6address"
 # Enable IPv4 and IPv6 forwarding
 SYSCTL_CONF="/etc/net/sysctl.conf"
 if [ -f "$SYSCTL_CONF" ]; then
-    sed -i 's/net.ipv4.ip_forward = 0/net.ipv4.ip_forward = 1 /g' "$SYSCTL_CONF"
+    sed -i 's/net.ipv4.ip_forward = 0/net.ipv4.ip_forward = 1/g' "$SYSCTL_CONF"
     if grep -q 'net.ipv4.ip_forward = 1' "$SYSCTL_CONF"; then
         sed -i '/net.ipv4.ip_forward = 1/a net.ipv6.conf.all.forwarding = 1' "$SYSCTL_CONF"
     else

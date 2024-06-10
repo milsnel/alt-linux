@@ -19,13 +19,13 @@ interface ens34
     AdvSendAdvert on;
     AdvManagedFlag on;
     AdvOtherConfigFlag on;
-    prefix 2000:108::/122
+    prefix 2000:100::/122
     {
         AdvOnLink on;
         AdvAutonomous on;
         AdvRouterAddr on;
     };
-};"
+};
 EOF
 
 
