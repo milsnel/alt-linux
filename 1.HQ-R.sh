@@ -25,6 +25,21 @@ ENS33_DIR="/etc/net/ifaces/ens33"
 ENS34_DIR="/etc/net/ifaces/ens34"
 ENS35_DIR="/etc/net/ifaces/ens35"
 
+mkdir "$ENS33_DIR"
+mkdir "$ENS34_DIR"
+mkdir "$ENS35_DIR"
+
+ENS33_OPTIONS="/etc/net/ifaces/ens33/options"
+
+cat <<EOF > "$ENS33_OPTIONS"
+TYPE=eth
+DISABLED=no
+NM_CONTROLLED=no
+BOOTPROTO=static
+CONFIG_IPV4=YES
+CONFIG_IPV6=YES
+EOF
+
 
 if [ -f "$ENS33_OPTIONS" ]; then
     cp "$ENS33_OPTIONS" "$ENS34_DIR/"
