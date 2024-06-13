@@ -25,7 +25,6 @@ ENS33_DIR="/etc/net/ifaces/ens33"
 ENS34_DIR="/etc/net/ifaces/ens34"
 ENS35_DIR="/etc/net/ifaces/ens35"
 
-mkdir "$ENS33_DIR"
 mkdir "$ENS34_DIR"
 mkdir "$ENS35_DIR"
 
