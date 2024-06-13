@@ -26,7 +26,7 @@ subnet 192.168.100.0 netmask 255.255.255.192 {
 }
 
 host hq-srv {
-    hardware ethernet 00:0c:29:87:ed:1d;
+    hardware ethernet 00:0c:29:bf:29:7e;
     fixed-address 192.168.100.2;
 }
 EOF

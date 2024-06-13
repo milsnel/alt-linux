@@ -18,9 +18,9 @@ systemctl enable --now nftables || error_exit "Не удалось включи�
 # Добавление правил в nftables
 echo "Добавление правил в nftables..."
 nft add rule inet filter input ip saddr 33.33.33.2 tcp dport 2222 counter drop || error_exit "Не удалось добавить правило для 33.33.33.2."
-nft add rule inet filter input ip saddr 44.44.44.0/24 tcp dport 2222 counter drop || error_exit "Не удалось добавить правило для 44.44.44.0/24."
-nft add rule inet filter input ip6 saddr 2001:33::/64 tcp dport 2222 counter drop || error_exit "Не удалось добавить правило для 2001:33::/64."
-nft add rule inet filter input ip6 saddr 2001:44::/64 tcp dport 2222 counter drop || error_exit "Не удалось добавить правило для 2001:44::/64."
+nft add rule inet filter input ip saddr 44.44.44.0/64 tcp dport 2222 counter drop || error_exit "Не удалось добавить правило для 44.44.44.0/24."
+nft add rule inet filter input ip6 saddr 2001:33::2 tcp dport 2222 counter drop || error_exit "Не удалось добавить правило для 2001:33::/64."
+nft add rule inet filter input ip6 saddr 2001:44::0/64 tcp dport 2222 counter drop || error_exit "Не удалось добавить правило для 2001:44::/64."
 
 # Удаление существующего файла конфигурации nftables
 NFTABLES_CONF="/etc/nftables/nftables.nft"
