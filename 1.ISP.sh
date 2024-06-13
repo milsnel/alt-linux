@@ -16,27 +16,28 @@ else
     error_exit "Файл $DEFAULT_OPTIONS не найден."
 fi
 
-# Configure ens34 interface
-ENS34_OPTIONS="/etc/net/ifaces/ens34/options"
-if [ -f "$ENS34_OPTIONS" ]; then
-    sed -i 's/DISABLED=yes/DISABLED=no/g' "$ENS34_OPTIONS"
-    sed -i 's/MN_CONTROLLED=yes/MN_CONTROLLED=no/g' "$ENS34_OPTIONS"
-
-    # Проверка и замена CONFIG_IPV6, или добавление его после CONFIG_IPV4
-    if grep -q 'CONFIG_IPV6=no' "$ENS34_OPTIONS"; then
-        sed -i 's/CONFIG_IPV6=no/CONFIG_IPV6=yes/g' "$ENS34_OPTIONS"
-    elif ! grep -q 'CONFIG_IPV6=yes' "$ENS34_OPTIONS"; then
-        # Если строки CONFIG_IPV6 нет, добавляем её после строки CONFIG_IPV4=yes
-        sed -i '/CONFIG_IPV4=yes/a CONFIG_IPV6=yes' "$ENS34_OPTIONS"
-    fi
-else
-    error_exit "Файл $ENS34_OPTIONS не найден."
-fi
-
-# Copy ens34 configuration to ens35 and ens36
 ENS34_DIR="/etc/net/ifaces/ens34"
 ENS35_DIR="/etc/net/ifaces/ens35"
 ENS36_DIR="/etc/net/ifaces/ens36"
+
+mkdir "$ENS33_DIR"
+mkdir "$ENS34_DIR"
+mkdir "$ENS35_DIR"
+
+# Configure ens34 interface
+ENS34_OPTIONS="/etc/net/ifaces/ens34/options"
+
+cat <<EOF > "$ENS34_OPTIONS"
+TYPE=eth
+DISABLED=no
+NM_CONTROLLED=no
+BOOTPROTO=static
+CONFIG_IPV4=YES
+CONFIG_IPV6=YES
+EOF
+
+# Copy ens34 configuration to ens35 and ens36
+
 if [ -f "$ENS34_OPTIONS" ]; then
     cp "$ENS34_OPTIONS" "$ENS35_DIR/"
     cp "$ENS34_OPTIONS" "$ENS36_DIR/"
