@@ -20,9 +20,9 @@ ENS34_DIR="/etc/net/ifaces/ens34"
 ENS35_DIR="/etc/net/ifaces/ens35"
 ENS36_DIR="/etc/net/ifaces/ens36"
 
-mkdir "$ENS33_DIR"
 mkdir "$ENS34_DIR"
 mkdir "$ENS35_DIR"
+mkdir "$ENS36_DIR"
 
 # Configure ens34 interface
 ENS34_OPTIONS="/etc/net/ifaces/ens34/options"
