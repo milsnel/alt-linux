@@ -14,6 +14,8 @@ nft add rule ip nat postrouting ip saddr 22.22.22.0/24 oifname "ens33" counter m
 
 nft add rule ip nat postrouting ip saddr 33.33.33.0/24 oifname "ens33" counter masquerade
 
+nft list ruleset
+
 nft list ruleset | tail -n8 | tee -a /etc/nftables/nftables.nft
 
 systemctl restart nftables
