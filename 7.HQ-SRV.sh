@@ -7,13 +7,26 @@ error_exit() {
     exit 1
 }
 
+# Ввод нового порта для SSH
+read -p "Введите новый порт для SSH: " NEW_PORT
+
+# Проверка, является ли введенное значение числом
+if ! [[ "$NEW_PORT" =~ ^[0-9]+$ ]]; then
+    error_exit "Ошибка: Введено не числовое значение."
+fi
+
 # Изменение порта SSH в конфигурационном файле
-SSH_CONFIG="/etc/openssh/sshd_config"
-NEW_PORT=2222
+SSH_CONFIG="/etc/ssh/sshd_config"
 
 echo "Изменение порта SSH на $NEW_PORT..."
 if [ -f "$SSH_CONFIG" ]; then
-    sed -i "s/#Port 22/Port $NEW_PORT/g" "$SSH_CONFIG" || error_exit "Не удалось изменить порт в $SSH_CONFIG."
+    if grep -q "^#Port 22" "$SSH_CONFIG"; then
+        sed -i "s/^#Port 22/Port $NEW_PORT/" "$SSH_CONFIG" || error_exit "Не удалось изменить порт в $SSH_CONFIG."
+    elif grep -q "^Port 22" "$SSH_CONFIG"; then
+        sed -i "s/^Port 22/Port $NEW_PORT/" "$SSH_CONFIG" || error_exit "Не удалось изменить порт в $SSH_CONFIG."
+    else
+        echo "Port $NEW_PORT" >> "$SSH_CONFIG" || error_exit "Не удалось добавить порт в $SSH_CONFIG."
+    fi
 else
     error_exit "Файл $SSH_CONFIG не найден."
 fi
@@ -24,7 +37,7 @@ systemctl restart sshd || error_exit "Не удалось перезапусти
 
 # Проверка, что служба sshd слушает на новом порту
 echo "Проверка, что служба sshd слушает на порту $NEW_PORT..."
-if ss -tlpn | grep sshd; then
+if ss -tlpn | grep "sshd.*:$NEW_PORT"; then
     echo "Служба sshd успешно слушает на порту $NEW_PORT."
 else
     error_exit "Служба sshd не слушает на порту $NEW_PORT."
