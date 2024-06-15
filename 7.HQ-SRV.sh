@@ -16,7 +16,7 @@ if ! [[ "$NEW_PORT" =~ ^[0-9]+$ ]]; then
 fi
 
 # Изменение порта SSH в конфигурационном файле
-SSH_CONFIG="/etc/ssh/sshd_config"
+SSH_CONFIG="/etc/openssh/sshd_config"
 
 echo "Изменение порта SSH на $NEW_PORT..."
 if [ -f "$SSH_CONFIG" ]; then

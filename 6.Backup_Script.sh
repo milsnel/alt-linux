@@ -1,5 +1,7 @@
 #!/bin/bash
 
+ls -l /opt/
+
 echo "Start of backup"
 
 backup_dir="/etc"
@@ -9,3 +11,7 @@ mkdir -p $dest_dir
 tar -czf $dest_dir/$(hostname -s)-$(date +"%d.%m.%y").tgz $backup_dir
 
 echo "All is Done"
+
+ls -l /opt/
+
+ls -l /opt/backup/
