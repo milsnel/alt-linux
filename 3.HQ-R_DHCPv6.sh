@@ -30,7 +30,7 @@ subnet6 2000:100::/122 {
 }
 
 # host hq-srv {
-#   host-identifier option dhcp6.client-id <DUID>;
+#   host-identifier option dhcp6.client-id 00:04:1d:cc:4a:98:dd:cd:73:32:66:5d:3e:92:aa:f5:89:e5;
 #   fixed-address6 2000:100::2;
 #   fixed-prefix6 2000:100::/122;
 # }
