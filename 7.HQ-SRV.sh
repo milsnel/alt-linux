@@ -37,7 +37,7 @@ systemctl restart sshd || error_exit "Не удалось перезапусти
 
 # Проверка, что служба sshd слушает на новом порту
 echo "Проверка, что служба sshd слушает на порту $NEW_PORT..."
-if ss -tlpn | grep "sshd.*:$NEW_PORT"; then
+if ss -tlpn | grep ":$NEW_PORT"; then
     echo "Служба sshd успешно слушает на порту $NEW_PORT."
 else
     error_exit "Служба sshd не слушает на порту $NEW_PORT."

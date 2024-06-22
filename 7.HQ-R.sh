@@ -34,10 +34,10 @@ nft list tables | grep -q '^ip6 nat$' || nft add table ip6 nat
 nft list chains ip6 nat | grep -q '^prerouting$' || nft add chain ip6 nat prerouting '{ type nat hook prerouting priority -100; }'
 
 # Удаление старого правила для IPv6, если существует
-nft delete rule ip6 nat prerouting ip6 daddr 2001:db8::1 tcp dport 22
+nft delete rule ip6 nat prerouting ip6 daddr 2000:100::2 tcp dport 22
 
 # Добавление нового правила перенаправления трафика с порта 22 на указанный порт для IPv6
-nft add rule ip6 nat prerouting ip6 daddr 2001:db8::1 tcp dport 22 dnat to [2001:db8::1]:$new_port
+nft add rule ip6 nat prerouting ip6 daddr 2000:100::2 tcp dport 22 dnat to [2000:100::2]:$new_port
 
 # Сохранение конфигурации
 nft list ruleset | tee /etc/nftables/nftables.nft
