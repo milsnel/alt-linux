@@ -8,7 +8,7 @@ apt-get update && apt-get install -y nftables
 
 # Включение и запуск службы nftables
 systemctl enable --now nftables
-sleep 1
+sleep 5
 # Добавление таблицы и цепочек
 nft add table ip nat
 sleep 5
