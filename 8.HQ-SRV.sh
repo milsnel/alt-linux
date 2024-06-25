@@ -11,7 +11,7 @@ error_exit() {
 DENY_USERS="33.33.33.2 2001:33::2 44.44.44.2 2001:44::2 55.55.55.2 2001:55::2"
 
 # Путь к конфигурационному файлу SSH
-SSH_CONFIG="/etc/ssh/sshd_config"
+SSH_CONFIG="/etc/openssh/sshd_config"
 
 # Проверка существования файла конфигурации
 if [ ! -f "$SSH_CONFIG" ]; then
