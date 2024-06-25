@@ -17,10 +17,10 @@ if ! [[ "$new_port" =~ ^[0-9]+$ ]]; then
     exit 1
 fi
 # Создание таблицы NAT для IPv4, если еще не создана
-nft add table ip nat
+nft add table inet nat
 
 # Создание цепочки prerouting для IPv4, если еще не создана
- nft add chain ip nat prerouting '{ type nat hook prerouting priority 0; }'
+ nft add chain inet nat prerouting '{ type nat hook prerouting priority 0; }'
 
 # Удаление старого правила для IPv4, если существует
 # Добавление нового правила перенаправления трафика с порта 22 на указанный порт для IPv4
