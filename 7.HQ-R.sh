@@ -16,12 +16,11 @@ if ! [[ "$new_port" =~ ^[0-9]+$ ]]; then
     echo "Ошибка: Введено не числовое значение."
     exit 1
 fi
-nft
 # Создание таблицы NAT для IPv4, если еще не создана
-nft list tables | grep -q '^nat$' || nft add table ip nat
+nft add table ip nat
 
 # Создание цепочки prerouting для IPv4, если еще не создана
-nft list chains ip nat | grep -q '^prerouting$' || nft add chain ip nat prerouting '{ type nat hook prerouting priority 0; }'
+ nft add chain ip nat prerouting '{ type nat hook prerouting priority 0; }'
 
 # Удаление старого правила для IPv4, если существует
 # Добавление нового правила перенаправления трафика с порта 22 на указанный порт для IPv4
