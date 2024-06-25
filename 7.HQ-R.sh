@@ -24,13 +24,9 @@ nft list tables | grep -q '^nat$' || nft add table ip nat
 nft list chains ip nat | grep -q '^prerouting$' || nft add chain ip nat prerouting '{ type nat hook prerouting priority 0; }'
 
 # Удаление старого правила для IPv4, если существует
-nft delete rule inet nat prerouting ip daddr 192.168.100.2 tcp dport 22
 # Добавление нового правила перенаправления трафика с порта 22 на указанный порт для IPv4
 nft add rule inet nat prerouting ip daddr 192.168.100.2 tcp dport 22 dnat to 192.168.100.2:$new_port
-
-nft delete rule ip nat prerouting ip daddr 2001:11::2 tcp dport 22
-
-nft add rule inet nat prerouting ip6 daddr 2001:11::2 tcp dport 22 dnat to [2000:100::2]:$new_port
+nft add rule inet nat prerouting ip6 daddr 2000:100::2 tcp dport 22 dnat to [2000:100::2]:$new_port
 
 
 # Создание таблицы NAT для IPv6, если еще не создана
