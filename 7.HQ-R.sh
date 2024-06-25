@@ -16,7 +16,7 @@ if ! [[ "$new_port" =~ ^[0-9]+$ ]]; then
     echo "Ошибка: Введено не числовое значение."
     exit 1
 fi
-
+nft
 # Создание таблицы NAT для IPv4, если еще не создана
 nft list tables | grep -q '^nat$' || nft add table ip nat
 
