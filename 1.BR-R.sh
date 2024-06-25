@@ -45,12 +45,12 @@ fi
 # Set IPv4 addresses
 echo 22.22.22.2/24 > "$ENS33_DIR/ipv4address"
 echo default via 22.22.22.1 > "$ENS33_DIR/ipv4route"
-echo 192.168.200.1/28 > "$ENS34_DIR/ipv4address"
+echo 192.168.200.1/29 > "$ENS34_DIR/ipv4address"
 
 # Set IPv6 addresses
 echo 2001:22::2/64 > "$ENS33_DIR/ipv6address"
 echo default via 2001:22::1 > "$ENS33_DIR/ipv6route"
-echo 2000:200::1/124 > "$ENS34_DIR/ipv6address"
+echo 2000:200::1/125 > "$ENS34_DIR/ipv6address"
 
 # Enable IPv4 and IPv6 forwarding
 SYSCTL_CONF="/etc/net/sysctl.conf"

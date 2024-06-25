@@ -28,7 +28,7 @@ vtysh <<EOF
 conf t
 router ospf
 passive-interface default
-network 192.168.100.0/26 area 0
+network 192.168.100.0/28 area 0
 network 172.16.100.0/24 area 0
 exit
 

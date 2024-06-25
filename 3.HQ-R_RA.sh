@@ -19,7 +19,7 @@ interface ens34
     AdvSendAdvert on;
     AdvManagedFlag on;
     AdvOtherConfigFlag on;
-    prefix 2000:100::/122
+    prefix 2000:100::/124
     {
         AdvOnLink on;
         AdvAutonomous on;

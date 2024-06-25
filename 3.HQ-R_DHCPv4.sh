@@ -20,8 +20,8 @@ max-lease-time 72000;
 
 authoritative;
 
-subnet 192.168.100.0 netmask 255.255.255.192 {
-    range 192.168.100.10 192.168.100.62;
+subnet 192.168.100.0 netmask 255.255.255.240 {
+    range 192.168.100.3 192.168.100.14;
     option routers 192.168.100.1;
 }
 
