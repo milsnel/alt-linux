@@ -19,7 +19,7 @@ get_config_value() {
 }
 
 HQ_R_FRR_NETWORK_HQ_SRV=$(get_config_value "HQ-R.FRR.NETWORK.HQ_SRV")
-HQ_R_FRR_NETWORK_TUNNEL=$(get_config_value "HQ-R.FRR.NETWORK.TUNNEl")
+HQ_R_FRR_NETWORK_TUNNEL=$(get_config_value "HQ-R.FRR.NETWORK.TUNNEL")
 HQ_R_FRR_NETWORK_ROUTER_ID=$(get_config_value "HQ-R.FRR.NETWORK.ROUTER_ID")
 
 apt-get update && apt-get install -y frr

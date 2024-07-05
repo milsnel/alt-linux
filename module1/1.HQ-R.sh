@@ -28,7 +28,8 @@ HQ_R_IP_V6_TO_ISP=$(get_config_value "HQ-R.IP_V6.TO_ISP")
 HQ_R_IP_V6_TO_HQ_SRV=$(get_config_value "HQ-R.IP_V6.TO_HQ_SRV")
 HQ_R_IP_V6_TO_CLI=$(get_config_value "HQ-R.IP_V6.TO_CLI")
 
-HQ_R_GATEWAY=$(get_config_value "HQ-R.GATEWAY")
+HQ_R_GATEWAY_IP_V4=$(get_config_value "HQ-R.GATEWAY.IP_V4")
+HQ_R_GATEWAY_IP_V6=$(get_config_value "HQ-R.GATEWAY.IP_V6")
 
 DEFAULT_OPTIONS="/etc/net/ifaces/default/options"
 if [ -f "$DEFAULT_OPTIONS" ]; then
@@ -70,13 +71,13 @@ fi
 
 # Set IPv4 addresses
 echo "$HQ_R_IP_V4_TO_ISP" > "$ENS33_DIR/ipv4address"
-echo default via "$HQ_R_GATEWAY" > "$ENS33_DIR/ipv4route"
+echo default via "$HQ_R_GATEWAY_IP_V4" > "$ENS33_DIR/ipv4route"
 echo "$HQ_R_IP_V4_TO_HQ_SRV" > "$ENS34_DIR/ipv4address"
 echo "$HQ_R_IP_V4_TO_CLI" > "$ENS35_DIR/ipv4address"
 
 # Set IPv6 addresses
 echo "$HQ_R_IP_V6_TO_ISP" > "$ENS33_DIR/ipv6address"
-echo default via "$HQ_R_GATEWAY" > "$ENS33_DIR/ipv6route"
+echo default via "$HQ_R_GATEWAY_IP_V6" > "$ENS33_DIR/ipv6route"
 echo "$HQ_R_IP_V6_TO_HQ_SRV" > "$ENS34_DIR/ipv6address"
 echo "$HQ_R_IP_V6_TO_CLI" > "$ENS35_DIR/ipv6address"
 
