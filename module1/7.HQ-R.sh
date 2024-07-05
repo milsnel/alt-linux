@@ -18,6 +18,9 @@ get_config_value() {
     grep "^$key=" "$CONFIG_FILE" | cut -d'=' -f2
 }
 
+HQ_R_NFTABLES_PREROUTING_IP_V4_HQ_SRV=$(get_config_value "HQ-R.NFTABLES.PREROUTING.IP_V4.HQ_SRV")
+HQ_R_NFTABLES_PREROUTING_IP_V6_HQ_SRV=$(get_config_value "HQ-R.NFTABLES.PREROUTING.IP_V6.HQ_SRV")
+
 # Установка nftables, если еще не установлен
 apt-get install -y nftables
 
@@ -42,8 +45,8 @@ nft add table inet nat
 
 # Удаление старого правила для IPv4, если существует
 # Добавление нового правила перенаправления трафика с порта 22 на указанный порт для IPv4
-nft add rule inet nat prerouting ip daddr 192.168.100.2 tcp dport 22 dnat to 192.168.100.2:$new_port
-nft add rule inet nat prerouting ip6 daddr 2000:100::2 tcp dport 22 dnat to [2000:100::2]:$new_port
+nft add rule inet nat prerouting ip daddr "$HQ_R_NFTABLES_PREROUTING_IP_V4_HQ_SRV" tcp dport 22 dnat to "$HQ_R_NFTABLES_PREROUTING_IP_V4_HQ_SRV":$new_port
+nft add rule inet nat prerouting ip6 daddr "$HQ_R_NFTABLES_PREROUTING_IP_V6_HQ_SRV" tcp dport 22 dnat to ["$HQ_R_NFTABLES_PREROUTING_IP_V6_HQ_SRV"]:$new_port
 
 
 # Создание таблицы NAT для IPv6, если еще не создана

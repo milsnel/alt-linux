@@ -18,6 +18,16 @@ get_config_value() {
     grep "^$key=" "$CONFIG_FILE" | cut -d'=' -f2
 }
 
+HQ_R_DHCP_V4_SUBNET=$(get_config_value "HQ-R.DHCP.V4.SUBNET")
+HQ_R_DHCP_V4_NETMASK=$(get_config_value "HQ-R.DHCP.V4.NETMASK")
+HQ_R_DHCP_V4_RANGE_FROM=$(get_config_value "HQ-R.DHCP.V4.RANGE_FROM")
+HQ_R_DHCP_V4_RANGE_TO=$(get_config_value "HQ-R.DHCP.V4.RANGE_TO")
+HQ_R_DHCP_V4_OPTION_ROOUTERS=$(get_config_value "HQ-R.DHCP.V4.OPTION_ROOUTERS")
+
+HQ_R_DHCP_V4_HARDWARE=$(get_config_value "HQ-R.DHCP.V4.HARDWARE")
+HQ_R_DHCP_V4_FIXED_ADDRESS=$(get_config_value "HQ-R.DHCP.V4.FIXED_ADDRESS")
+
+
 apt-get update && apt-get install -y dhcp-server
 
 sed -i 's/DHCPDARGS=/DHCPDARGS=ens34/g' "/etc/sysconfig/dhcpd"
@@ -31,14 +41,14 @@ max-lease-time 72000;
 
 authoritative;
 
-subnet 192.168.100.0 netmask 255.255.255.240 {
-    range 192.168.100.3 192.168.100.14;
-    option routers 192.168.100.1;
+subnet $HQ_R_DHCP_V4_SUBNET netmask $HQ_R_DHCP_V4_NETMASK {
+    range $HQ_R_DHCP_V4_RANGE_FROM $HQ_R_DHCP_V4_RANGE_TO;
+    option routers $HQ_R_DHCP_V4_OPTION_ROOUTERS;
 }
 
 host hq-srv {
-    hardware ethernet 00:0c:29:bf:29:7e;
-    fixed-address 192.168.100.2;
+    hardware ethernet $HQ_R_DHCP_V4_HARDWARE;
+    fixed-address $HQ_R_DHCP_V4_FIXED_ADDRESS;
 }
 EOF
 

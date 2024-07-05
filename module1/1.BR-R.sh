@@ -67,9 +67,9 @@ echo default via "$HR_R_GATEWAY" > "$ENS33_DIR/ipv4route"
 echo  "$BR_R_IP_V4_TO_HQ_SRV" > "$ENS34_DIR/ipv4address"
 
 # Set IPv6 addresses
-echo "$BR_R_IP_V6_TO_ISP" > "$ENS33_DIR/ipv4address"
-echo default via "$HR_R_GATEWAY" > "$ENS33_DIR/ipv4route"
-echo  "$BR_R_IP_V6_TO_HQ_SRV" > "$ENS34_DIR/ipv4address"
+echo "$BR_R_IP_V6_TO_ISP" > "$ENS33_DIR/ipv6address"
+echo default via "$HR_R_GATEWAY" > "$ENS33_DIR/ipv6route"
+echo  "$BR_R_IP_V6_TO_HQ_SRV" > "$ENS34_DIR/ipv6address"
 
 # Enable IPv4 and IPv6 forwarding
 SYSCTL_CONF="/etc/net/sysctl.conf"

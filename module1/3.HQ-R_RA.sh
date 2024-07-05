@@ -18,6 +18,8 @@ get_config_value() {
     grep "^$key=" "$CONFIG_FILE" | cut -d'=' -f2
 }
 
+HQ_R_RA_PREFIX=$(get_config_value "HQ-R.RA.PREFIX")
+
 apt-get install -y radvd
 
 echo net.ipv6.conf.ens34.accept_ra = 2 >> /etc/net/sysctl.conf
@@ -37,7 +39,7 @@ interface ens34
     AdvSendAdvert on;
     AdvManagedFlag on;
     AdvOtherConfigFlag on;
-    prefix 2000:100::/124
+    prefix $HQ_R_RA_PREFIX
     {
         AdvOnLink on;
         AdvAutonomous on;

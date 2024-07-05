@@ -70,9 +70,9 @@ echo "$ISP_IP_V4_TO_BR_R" > "$ENS35_DIR/ipv4address"
 echo "$ISP_IP_V4_TO_CLI" > "$ENS36_DIR/ipv4address"
 
 # Set IPv6 addresses
-echo "$ISP_IP_V6_TO_HQ_R" > "$ENS34_DIR/ipv4address"
-echo "$ISP_IP_V6_TO_BR_R" > "$ENS35_DIR/ipv4address"
-echo "$ISP_IP_V6_TO_CLI" > "$ENS36_DIR/ipv4address"
+echo "$ISP_IP_V6_TO_HQ_R" > "$ENS34_DIR/ipv6address"
+echo "$ISP_IP_V6_TO_BR_R" > "$ENS35_DIR/ipv6address"
+echo "$ISP_IP_V6_TO_CLI" > "$ENS36_DIR/ipv6address"
 
 # Enable IPv4 and IPv6 forwarding
 SYSCTL_CONF="/etc/net/sysctl.conf"

@@ -18,6 +18,10 @@ get_config_value() {
     grep "^$key=" "$CONFIG_FILE" | cut -d'=' -f2
 }
 
+BR_R_FRR_NETWORK_HQ_SRV=$(get_config_value "BR-R.FRR.NETWORK.HQ_SRV")
+BR_R_FRR_NETWORK_TUNNEL=$(get_config_value "BR-R.FRR.NETWORK.TUNNEL")
+BR_R_FRR_NETWORK_ROUTER_ID=$(get_config_value "BRS-R.FRR.NETWORK.ROUTER_ID")
+
 apt-get update && apt-get install -y frr
 
 # Define the path to the daemons file
@@ -39,8 +43,8 @@ vtysh <<EOF
 conf t
 router ospf
 passive-interface default
-network 192.168.200.0/29 area 0
-network 172.16.100.0/24 area 0
+network $BR_R_FRR_NETWORK_HQ_SRV area 0
+network $BR_R_FRR_NETWORK_TUNNEL area 0
 exit
 
 interface GREtun
@@ -51,7 +55,7 @@ exit
 do wr mem
 
 router ospf6
-ospf6 router-id 22.22.22.2
+ospf6 router-id $BR_R_FRR_NETWORK_ROUTER_ID
 exit
 
 interface GREtun
