@@ -7,6 +7,17 @@ error_exit() {
     exit 1
 }
 
+CONFIG_FILE="../neverlose.cfg"
+if [ ! -f "$CONFIG_FILE" ]; then
+    error_exit "Файл $CONFIG_FILE не найден."
+fi
+
+# Функция для чтения значений из конфигурационного файла
+get_config_value() {
+    local key="$1"
+    grep "^$key=" "$CONFIG_FILE" | cut -d'=' -f2
+}
+
 apt-get update && apt-get install -y frr
 
 # Define the path to the daemons file
@@ -28,7 +39,7 @@ vtysh <<EOF
 conf t
 router ospf
 passive-interface default
-network 192.168.200.0/29 area 0
+network 192.168.100.0/28 area 0
 network 172.16.100.0/24 area 0
 exit
 
@@ -40,7 +51,7 @@ exit
 do wr mem
 
 router ospf6
-ospf6 router-id 22.22.22.2
+ospf6 router-id 11.11.11.2
 exit
 
 interface GREtun

@@ -1,5 +1,23 @@
 #!/bin/bash
 
+set -e
+
+error_exit() {
+    echo "$1" 1>&2
+    exit 1
+}
+
+CONFIG_FILE="../neverlose.cfg"
+if [ ! -f "$CONFIG_FILE" ]; then
+    error_exit "Файл $CONFIG_FILE не найден."
+fi
+
+# Функция для чтения значений из конфигурационного файла
+get_config_value() {
+    local key="$1"
+    grep "^$key=" "$CONFIG_FILE" | cut -d'=' -f2
+}
+
 # Установка nftables, если еще не установлен
 apt-get install -y nftables
 

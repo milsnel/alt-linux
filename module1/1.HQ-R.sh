@@ -9,6 +9,27 @@ error_exit() {
     exit 1
 }
 
+CONFIG_FILE="../neverlose.cfg"
+if [ ! -f "$CONFIG_FILE" ]; then
+    error_exit "Файл $CONFIG_FILE не найден."
+fi
+
+# Функция для чтения значений из конфигурационного файла
+get_config_value() {
+    local key="$1"
+    grep "^$key=" "$CONFIG_FILE" | cut -d'=' -f2
+}
+
+HQ_R_IP_V4_TO_ISP=$(get_config_value "HQ-R.IP_V4.TO_ISP")
+HQ_R_IP_V4_TO_HQ_SRV=$(get_config_value "HQ-R.IP_V4.TO_HQ_SRV")
+HQ_R_IP_V4_TO_CLI=$(get_config_value "HQ-R.IP_V4.TO_CLI")
+
+HQ_R_IP_V6_TO_ISP=$(get_config_value "HQ-R.IP_V6.TO_ISP")
+HQ_R_IP_V6_TO_HQ_SRV=$(get_config_value "HQ-R.IP_V6.TO_HQ_SRV")
+HQ_R_IP_V6_TO_CLI=$(get_config_value "HQ-R.IP_V6.TO_CLI")
+
+HQ_R_GATEWAY=$(get_config_value "HQ-R.GATEWAY")
+
 DEFAULT_OPTIONS="/etc/net/ifaces/default/options"
 if [ -f "$DEFAULT_OPTIONS" ]; then
     sed -i 's/CONFIG_IPV6=no/CONFIG_IPV6=yes/g' "$DEFAULT_OPTIONS"
@@ -48,16 +69,16 @@ else
 fi
 
 # Set IPv4 addresses
-echo 11.11.11.2/24 > "$ENS33_DIR/ipv4address"
-echo default via 11.11.11.1 > "$ENS33_DIR/ipv4route"
-echo 192.168.100.1/28 > "$ENS34_DIR/ipv4address"
-echo 44.44.44.1/24 > "$ENS35_DIR/ipv4address"
+echo "$HQ_R_IP_V4_TO_ISP" > "$ENS33_DIR/ipv4address"
+echo default via "$HQ_R_GATEWAY" > "$ENS33_DIR/ipv4route"
+echo "$HQ_R_IP_V4_TO_HQ_SRV" > "$ENS34_DIR/ipv4address"
+echo "$HQ_R_IP_V4_TO_CLI" > "$ENS35_DIR/ipv4address"
 
 # Set IPv6 addresses
-echo 2001:11::2/64 > "$ENS33_DIR/ipv6address"
-echo default via 2001:11::1 > "$ENS33_DIR/ipv6route"
-echo 2000:100::1/124 > "$ENS34_DIR/ipv6address"
-echo 2001:44::1/64 > "$ENS35_DIR/ipv6address"
+echo "$HQ_R_IP_V6_TO_ISP" > "$ENS33_DIR/ipv4address"
+echo default via "$HQ_R_GATEWAY" > "$ENS33_DIR/ipv4route"
+echo "$HQ_R_IP_V6_TO_HQ_SRV" > "$ENS34_DIR/ipv4address"
+echo "$HQ_R_IP_V6_TO_CLI" > "$ENS35_DIR/ipv4address"
 
 # Enable IPv4 and IPv6 forwarding
 SYSCTL_CONF="/etc/net/sysctl.conf"

@@ -7,6 +7,17 @@ error_exit() {
     exit 1
 }
 
+CONFIG_FILE="../neverlose.cfg"
+if [ ! -f "$CONFIG_FILE" ]; then
+    error_exit "Файл $CONFIG_FILE не найден."
+fi
+
+# Функция для чтения значений из конфигурационного файла
+get_config_value() {
+    local key="$1"
+    grep "^$key=" "$CONFIG_FILE" | cut -d'=' -f2
+}
+
 # Список IP-адресов для блокировки
 DENY_USERS="33.33.33.2 2001:33::2 44.44.44.2 2001:44::2 55.55.55.2 2001:55::2"
 

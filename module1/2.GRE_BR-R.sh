@@ -7,6 +7,23 @@ error_exit() {
     exit 1
 }
 
+CONFIG_FILE="../neverlose.cfg"
+if [ ! -f "$CONFIG_FILE" ]; then
+    error_exit "Файл $CONFIG_FILE не найден."
+fi
+
+# Функция для чтения значений из конфигурационного файла
+get_config_value() {
+    local key="$1"
+    grep "^$key=" "$CONFIG_FILE" | cut -d'=' -f2
+}
+
+BR_R_TUNNEL_IP_V4=$(get_config_value "BR-R.TUNNEL.IP_V4")
+BR_R_TUNNEL_IP_V6=$(get_config_value "BR-R.TUNNEL.IP_V6")
+
+BR_R_TUNNEL_TUNLOCAL=$(get_config_value "BR-R.TUNNEL.TUNLOCAL")
+BR_R_TUNNEL_TUNREMOTE=$(get_config_value "BR-R.TUNNEL.TUNREMOTE")
+
 # Создание каталога для GRE интерфейса
 IFACE_DIR="/etc/net/ifaces/GREtun"
 echo "Создание каталога $IFACE_DIR..."
@@ -18,19 +35,19 @@ echo "Создание файла $OPTIONS_FILE..."
 cat <<EOF > "$OPTIONS_FILE"
 TYPE=iptun
 TUNTYPE=gre
-TUNLOCAL=11.11.11.2
-TUNREMOTE=22.22.22.2
+TUNLOCAL=$BR_R_TUNNEL_TUNLOCAL
+TUNREMOTE=$BR_R_TUNNEL_TUNREMOTE
 TUNOPTIONS='ttl 64'
 HOST=ens33
 EOF
 
 # Создание файла ipv4address для GRE интерфейса
 IPV4_FILE="$IFACE_DIR/ipv4address"
-echo "172.16.100.1/24" > "$IPV4_FILE" || error_exit "Не удалось создать файл $IPV4_FILE."
+echo "$BR_R_TUNNEL_IP_V4" > "$IPV4_FILE" || error_exit "Не удалось создать файл $IPV4_FILE."
 
 # Создание файла ipv6address для GRE интерфейса
 IPV6_FILE="$IFACE_DIR/ipv6address"
-echo "2001:100::1/64" > "$IPV6_FILE" || error_exit "Не удалось создать файл $IPV6_FILE."
+echo "$BR_R_TUNNEL_IP_V6" > "$IPV6_FILE" || error_exit "Не удалось создать файл $IPV6_FILE."
 
 # Перезапуск сетевой службы
 echo "Перезапуск сетевой службы..."
