@@ -50,7 +50,7 @@ subnet6 $HQ_R_DHCP_V6_SUBNET6{
 
 # host hq-srv {
 #   host-identifier option dhcp6.client-id $HQ_R_DHCP_V6_CLIENT_ID;
-#   fixed-address6 $HQ_R_DHCP_V6_FIXED_ADDRES;
+#   fixed-address6 $HQ_R_DHCP_V6_FIXED_ADDRESS;
 #   fixed-prefix6 $HQ_R_DHCP_V6_FIXED_FPREFIX;
 # }
 EOF
